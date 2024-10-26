@@ -7,11 +7,16 @@ import { GroupCard } from "@/components/GroupCard";
 import { FlatList } from "react-native";
 import { ListEmpty } from "@/components/ListEmpty/index.";
 import { Button } from "@/components/Button";
+import { useNavigation } from "@react-navigation/native";
 
 
 export default function Groups() {
   const [groups, serGroups] = useState<string[]>([]);
+  const navigation = useNavigation();
 
+  function handleNewGroup(){
+    navigation.navigate("new")
+  }
 
 
   return (
@@ -30,7 +35,7 @@ export default function Groups() {
       contentContainerStyle={groups.length === 0 && {flex: 1}}
       ListEmptyComponent={() => <ListEmpty message="Que tal cadastrar a primeira turma?"/>}
       />
-      <Button title="Criar nova turma"/>
+      <Button title="Criar nova turma" onPress={handleNewGroup}/>
     </Container>
   );
 }

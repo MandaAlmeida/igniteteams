@@ -1,11 +1,11 @@
-import { StatusBar } from "expo-status-bar";
+
 
 import { useFonts, Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
 
-import Players from "@/screens/Players";
 import { Loading } from "@/components/Loading";
 import { ThemeProvider } from "styled-components";
 import theme from "@/theme";
+import { Routes } from "@/routes";
 
 
 export default function Home() {
@@ -16,8 +16,7 @@ export default function Home() {
 
   return (
   <ThemeProvider theme={theme}> 
-        <StatusBar style="light" backgroundColor="transparet" translucent/>
-        {fontsLoaded ? <Players /> : <Loading />}
+        {fontsLoaded ? <Routes /> : <Loading />}
      </ThemeProvider>
   );
 }
