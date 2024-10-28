@@ -1,33 +1,40 @@
 import { Header } from "@/components/Header";
 import { Container, Content, Icon } from "./styles";
-import {Highlight} from "@/components/Highlight"
+import { Highlight } from "@/components/Highlight"
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
 import { useNavigation } from "expo-router";
 import { useState } from "react";
+import { groupCreate } from "@/storage/group/groupCreate";
 
-export default function NewGroup(){
+export default function NewGroup() {
     const [group, setGroup] = useState("");
     const navigation = useNavigation();
 
-    function handlePlayers(){
-        navigation.navigate('players', {group})
+    async function handlePlayers() {
+        try {
+            await groupCreate(group);
+            navigation.navigate('players', { group });
+        } catch (error) {
+            console.log(error)
+        }
+
     }
 
     return (
         <Container>
             <Header showBackButton />
             <Content>
-                <Icon name="users"/>
+                <Icon name="users" />
                 <Highlight
-                title="Nova turma"
-                subtitle="Crie a turma para adicionar as pessoas"
+                    title="Nova turma"
+                    subtitle="Crie a turma para adicionar as pessoas"
                 />
                 <Input
-                placeholder="Nome da turma"
-                onChangeText={setGroup}
+                    placeholder="Nome da turma"
+                    onChangeText={setGroup}
                 />
-                <Button title="Criar" style={{marginTop: 20}} onPress={handlePlayers}/>
+                <Button title="Criar" style={{ marginTop: 20 }} onPress={handlePlayers} />
             </Content>
         </Container>
     )
